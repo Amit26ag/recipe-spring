@@ -1,7 +1,10 @@
 package com.august.recipe.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -9,7 +12,10 @@ import java.math.BigDecimal;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(exclude = {"recipe"})
+@Builder
 public class Ingredient {
 
     @Id

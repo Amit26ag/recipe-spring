@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Recipe</title>
+        <link rel="stylesheet" crossorigin="anonymous" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}">
+        <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+        <script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+    </head>
+    <body>
+        <div class="container-fluid mt-3" >
+            <div style="width: 60%; margin: auto;">
+                <h2>Recipe Info</h2>
+                <hr>
+                <form th:object="${recipe}" th:action="@{/recipe/}"  method="post">
+                    <input type="hidden" th:field="*{id}"/>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="recipeName">Name</label>
+                            <input type="text" class="form-control" id="recipeName" placeholder="Name" th:field="*{name}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="url">URL</label>
+                            <input type="url" class="form-control" id="url" placeholder="URL" th:field="*{url}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="description">Description</label>
+                            <input type="text" class="form-control" id="description" placeholder="Description" th:field="*{description}">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <div th:each="category: ${categories}">
+                                <input class="form-check-input" type="checkbox" id="gridCheck" >
+                                <label class="form-check-label" for="gridCheck" th:text="category.description">
+                                    Check me out
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="prepTime">Prep time</label>
+                            <input type="number" class="form-control" id="prepTime" placeholder="in minutes" th:field="*{prepTime}">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="cookTime">Cook time</label>
+                            <input type="number" class="form-control" id="cookTime" placeholder="in minutes" th:field="*{cookTime}">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="difficulty">Difficulty</label>
+                            <select id="difficulty" class="form-control" th:field="*{difficulty}">
+                                <option th:each="difficulty : ${T(com.august.recipe.model.Difficulty).values()}" th:value="${difficulty.name()}" th:text="${difficulty.name()}">Difficulty</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="source">Source</label>
+                            <input type="text" class="form-control" id="source" placeholder="in minutes" th:field="*{source}">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="servings">Servings</label>
+                            <input type="number" class="form-control" id="servings" placeholder="in numbers" th:field="*{servings}">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="ingredients">Ingredients</label>
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter">Add +</button>
+                        <div id="ingredients">
+                            <div class="form-row" th:each="ingredient: ${recipe.ingredients}">
+                                <div class="form-group col-md-3">
+                                    <span th:text="${ingredient.description}"></span>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <span th:text="${ingredient.amount}"></span>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <span th:text="${ingredient.unitOfMeasure.unitDescription}"></span>
+                                </div>
+                                <div class="form-group col-md-1">
+                                    <a href="#" th:href="@{'/update/' + ${recipe.id} + '/ingredient/' + ${ingredient.id}}">Update</a>
+                                </div>
+                                <div class="form-group col-md-1">
+                                    <a href="#" th:href="${'/delete/' + recipe.id + '/ingredient/' + ingredient.id}">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="direction">Directions</label>
+                        <textarea class="form-control" id="direction" rows="5" th:field="*{directions}"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea class="form-control" id="notes" rows="5" th:field="*{notes.recipeNotes}"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add recipe</button>
+                </form>
+            </div>
+        </div>
+    </body>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add an ingredient!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form th:object="${ingredient}" th:action="${'/add/' + recipe.id + '/ingredient'}"  method="post">
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="ingDescription">Description</label>
+                                <input type="text" class="form-control" id="ingDescription" placeholder="Description" th:field="*{description}">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="ingAmount">Amount</label>
+                                <input type="text" class="form-control" id="ingAmount" placeholder="Description" th:field="*{amount}">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="ingDescription">Unit</label>
+                                <select th:field="*{unitOfMeasure.id}" class="form-control">
+                                    <option th:each="unit: ${units}" th:text="${unit.unitDescription}" th:value="${unit.id}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</html>

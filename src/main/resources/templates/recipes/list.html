@@ -3,25 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" crossorigin="anonymous" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}">
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
 </head>
 <body>
 
-    <h2 th:text="'List of recipes!'">List of Recipes</h2>
+    <div class="container">
+        <h2 th:text="'List of recipes!'">List of Recipes</h2>
 
-    <div th:each="recipe: ${recipes}">
-        <h3 th:text="${recipe.name}">Name of the dish</h3>
-        <p th:text="${recipe.directions}">Steps</p>
-        <p th:text="${recipe.difficulty}">Steps</p>
-        <p th:text="${'Prep Time: ' + recipe.prepTime}">Steps</p>
-        <p th:text="${'Cook Time: ' + recipe.cookTime}">Steps</p>
-        <p th:text="${'Source: ' + recipe.source}">Steps</p>
-        <p th:text="${'Link: ' + recipe.url}">Steps</p>
-        <ul>
-           <li th:each="ingredient: ${recipe.ingredients}">
-               <span th:text="${ingredient.description + ':' + ingredient.amount}"></span>
-           </li>
-        </ul>
+        <div th:each="recipe: ${recipes}">
+            <h3 th:text="${recipe.name}">Name of the dish</h3>
+            <p th:text="${recipe.directions}">Steps</p>
+            <p th:text="${recipe.difficulty}">Steps</p>
+            <p th:text="${'Prep Time: ' + recipe.prepTime}">Steps</p>
+            <p th:text="${'Cook Time: ' + recipe.cookTime}">Steps</p>
+            <p th:text="${'Source: ' + recipe.source}">Steps</p>
+            <p th:text="${'Link: ' + recipe.url}">Steps</p>
+            <ul>
+               <li th:each="ingredient: ${recipe.ingredients}">
+                   <span th:text="${ingredient.description + ':' + ingredient.amount}"></span>
+               </li>
+            </ul>
 
+        </div>
     </div>
 
 </body>

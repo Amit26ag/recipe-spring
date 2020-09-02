@@ -36,12 +36,13 @@ public class BootstrapData implements CommandLineRunner {
         UnitOfMeasure unit = unitOfMeasureRepository.findByUnitDescription("Unit").get();
 
         Ingredient salt = new Ingredient();
-        salt.setDescription("To taste!");
+        salt.setDescription("Salt");
         salt.setUnitOfMeasure(tableSpoon);
+        salt.setAmount(new BigDecimal("1.0"));
 
         Ingredient avocados = new Ingredient();
         avocados.setAmount(new BigDecimal("2.0"));
-        avocados.setDescription("Take ripe avocados.");
+        avocados.setDescription("Avocados");
         avocados.setUnitOfMeasure(unit);
 
 

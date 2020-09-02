@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+    <link rel="stylesheet" crossorigin="anonymous" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}">
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+    <div class="container-fluid mt-3" >
+        <div style="width: 60%; margin: auto;">
+            <h2>Recipe Info</h2>
+            <hr>
+            <form th:object="${ingredient}" th:action="${'/update/' + recipeId + '/ingredient'}"  method="post">
+                <input type="hidden" th:field="*{id}"/>
+                <div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="ingDescription">Description</label>
+                            <input type="text" class="form-control" id="ingDescription" placeholder="Description" th:field="*{description}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="ingAmount">Amount</label>
+                            <input type="text" class="form-control" id="ingAmount" placeholder="Description" th:field="*{amount}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="ingDescription">Unit</label>
+                            <select th:field="*{unitOfMeasure.id}" class="form-control">
+                                <option th:each="unit: ${units}" th:text="${unit.unitDescription}" th:value="${unit.id}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

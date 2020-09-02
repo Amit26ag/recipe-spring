@@ -28,12 +28,14 @@ class UnitOfMeasureRepositoryTest {
 //    @DirtiesContext
     void findByUnitDescription() {
         Optional<UnitOfMeasure> unitOfMeasure = unitOfMeasureRepository.findByUnitDescription("Teaspoon");
+        assert unitOfMeasure.orElse(null) != null;
         assertEquals(unitOfMeasure.orElse(null).getUnitDescription(), "Teaspoon");
     }
 
     @Test
     void findByUnitDescriptionForCup() {
         Optional<UnitOfMeasure> unitOfMeasure = unitOfMeasureRepository.findByUnitDescription("Cup");
+        assert unitOfMeasure.orElse(null) != null;
         assertEquals(unitOfMeasure.orElse(null).getUnitDescription(), "Cup");
     }
 }

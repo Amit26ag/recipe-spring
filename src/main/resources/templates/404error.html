@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>"Recipes"</title>
+    <link rel="stylesheet" crossorigin="anonymous" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}">
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<div class="container-fluid" style="margin-top: 20px">
+    <div style="width: 50%; margin: auto;">
+        <div class="card">
+            <h2 class="card-header">Oopsy!</h2>
+            <div class="card-body">
+                <h4 class="card-title" th:text="${customMessage}">Could not find that for you!</h4>
+                <h3 th:text="${exception.getMessage()}"></h3>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
